@@ -16,9 +16,4 @@ streamlit
 matplotlib
 joblib
 gspread
-os
 pyzipper
-tempfile
-oauth2client.service_account
-ServiceAccountCredentials
-google-auth
