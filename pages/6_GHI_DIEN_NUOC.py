@@ -120,6 +120,8 @@ if zip_password:
                                 st.rerun()
                             else:
                                 st.warning("⛔ Không có dữ liệu hợp lệ để tạo dòng mới.")
+                        except Exception as e:
+                            st.error(f"❌ Tạo dữ liệu tháng mới: {e}")
 
                     st.dataframe(df, use_container_width=True)
 
