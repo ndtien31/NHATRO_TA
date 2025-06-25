@@ -49,7 +49,7 @@ st.markdown("### Nơi an cư lý tưởng cho sinh viên và người đi làm")
 with st.container():
     st.markdown("""
     <div class="highlight">
-        Nằm tại <strong>TP. Thủ Dầu Một, Bình Dương</strong>, Nhà Trọ Tiến An mang đến không gian sống tiện nghi, 
+        Nằm tại <strong>TP. CẦN THƠ</strong>, Nhà Trọ Tiến An mang đến không gian sống tiện nghi, 
         an toàn với mức giá phải chăng. Với vị trí thuận lợi gần các trường đại học và khu công nghiệp, 
         chúng tôi tự hào là lựa chọn hàng đầu của sinh viên và công nhân.
     </div>
@@ -86,7 +86,7 @@ st.header("💵 Bảng giá tham khảo")
 price_data = {
     "Loại phòng": ["Phòng đơn", "Phòng đôi", "Phòng cao cấp"],
     "Diện tích": ["18-20m²", "25-28m²", "30-35m²"],
-    "Giá thuê": ["1.500.000đ", "2.200.000đ", "2.800.000đ"],
+    "Giá thuê": ["2.000.000đ", "2.200.000đ", "2.800.000đ"],
     "Tiện ích": ["Điều hòa, nóng lạnh", "Đầy đủ nội thất", "Ban công riêng"]
 }
 st.table(price_data)
@@ -97,10 +97,10 @@ with st.container():
     st.markdown("""
     <div class="contact-box">
         <h3>NHÀ TRỌ TIẾN AN</h3>
-        <p>📍 Địa chỉ: Số 123, đường ABC, TP. Thủ Dầu Một</p>
-        <p>📞 Hotline: 0909.123.456</p>
-        <p>📧 Email: nhatrotienan@gmail.com</p>
-        <p>💻 Fanpage: fb.com/nhatrotienan</p>
+        <p>📍 Địa chỉ: Số 29E4/4 KV3 An Khánh Ninh Kiều TP Cần Thơ</p>
+        <p>📞 Hotline: 0939382283-0939388883</p>
+        <p>📧 Email: ngonguyentienan@gmail.com</p>
+        <p>💻 Fanpage: https://www.facebook.com/ngonguyentienan </p>
     </div>
     """, unsafe_allow_html=True)
 
