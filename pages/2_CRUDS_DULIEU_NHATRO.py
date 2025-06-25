@@ -43,7 +43,7 @@ if zip_password:
 
                 # --- Nhập URL Google Sheet ---
                 sheet_url = st.text_input("🔗 Dán link Google Sheet tại đây:",
-                    "https://docs.google.com/spreadsheets/d/1bn16YhYQ-ZW5rigez5keN1HEfRaUFwCCmlbTpjHOJPU/edit?gid=0")
+                    "https://docs.google.com/spreadsheets/d/1AxkWZAumRsyW8TkxK3-47SrkyoD8mDZKMuaCZ5ebONk/edit?gid=245158288#gid=245158288")
 
                 def load_data():
                     try:
