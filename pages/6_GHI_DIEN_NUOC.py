@@ -75,7 +75,7 @@ if zip_password:
                             try:
                                 col_count = len(edited_row)
                                 end_col_letter = colnum_to_excel_col(col_count)
-                                sheet.update(f"A{selected_row+2}:{end_col_letter}{selected_row+2}", [list(edited_row.values())])
+                                sheet.update(f"A{selected_row+2}:{end_col_letter}{selected_row+2}", [[str(x) for x in edited_row.values()]])
                                 st.success("✅ Cập nhật thành công!")
                                 st.rerun()
                             except Exception as e:
@@ -133,7 +133,7 @@ if zip_password:
                                     df.at[idx, 'Chỉ số nước mới'] = chisonuocmoi
                                     col_count = len(df.columns)
                                     end_col_letter = colnum_to_excel_col(col_count)
-                                    sheet.update(f"A{idx+2}:{end_col_letter}{idx+2}", [df.iloc[idx].tolist()])
+                                    sheet.update(f"A{idx+2}:{end_col_letter}{idx+2}", [[str(x) for x in df.iloc[idx].tolist()]])
                                     st.success("✅ Đã cập nhật chỉ số mới!")
                                     st.rerun()
                                 except Exception as e:
