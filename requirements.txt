@@ -17,3 +17,9 @@ matplotlib
 joblib
 gspread
 pyzipper
+streamlit
+gspread
+oauth2client
+pyzipper
+pandas
+google-auth
