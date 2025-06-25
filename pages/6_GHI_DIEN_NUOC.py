@@ -1,4 +1,4 @@
-# Streamlit App Quản Lý Nhà Trọ với Google Sheet và CRUDS + nhập chỉ số mới
+# Streamlit App Quản Lý Nhà Trọ với Google Sheet và CRUDS + nhập chỉ số mới + tự động tạo dòng tháng mới
 import streamlit as st
 import pandas as pd
 import gspread
@@ -6,6 +6,7 @@ import os
 import pyzipper
 import tempfile
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime, timedelta
 
 # --- HÀM CHUYỂN SỐ CỘT SANG CHỮ EXCEL (A, B, ..., Z, AA, AB, ...) ---
 def colnum_to_excel_col(n):
@@ -60,49 +61,6 @@ if zip_password:
                 st.subheader("📥 Dữ liệu hiện tại:")
                 df, sheet = load_data()
                 if not df.empty:
-                    selected_row = st.selectbox("📝 Chọn dòng để chỉnh sửa, xoá hoặc tạo mới từ dòng này:", df.index, format_func=lambda i: f"Phòng: {df.iloc[i]['Số phòng']} - Khách: {df.iloc[i]['Họ tên khách thuê']}")
-                    selected_data = df.iloc[selected_row]
-
-                    with st.expander("✏️ Chỉnh sửa dòng đã chọn"):
-                        with st.form("edit_form"):
-                            edited_row = {}
-                            for col in df.columns:
-                                edited_row[col] = st.text_input(col, value=str(selected_data[col]))
-                            update_btn = st.form_submit_button("✅ Cập nhật dòng")
-                            delete_btn = st.form_submit_button("🗑️ Xoá dòng")
-
-                        if update_btn:
-                            try:
-                                col_count = len(edited_row)
-                                end_col_letter = colnum_to_excel_col(col_count)
-                                sheet.update(f"A{selected_row+2}:{end_col_letter}{selected_row+2}", [[str(x) for x in edited_row.values()]])
-                                st.success("✅ Cập nhật thành công!")
-                                st.rerun()
-                            except Exception as e:
-                                st.error(f"❌ Lỗi khi cập nhật: {e}")
-
-                        if delete_btn:
-                            try:
-                                sheet.delete_rows(selected_row + 2)
-                                st.success("🗑️ Đã xoá dòng!")
-                                st.rerun()
-                            except Exception as e:
-                                st.error(f"❌ Lỗi khi xoá: {e}")
-
-                    with st.expander("➕ Thêm dòng mới từ dòng đã chọn"):
-                        with st.form("duplicate_form"):
-                            new_row = {}
-                            for col in df.columns:
-                                default = str(selected_data[col]) if "THANG" not in col else ""
-                                new_row[col] = st.text_input(f"{col}", value=default)
-                            if st.form_submit_button("📥 Thêm dòng mới"):
-                                try:
-                                    sheet.append_row(list(new_row.values()))
-                                    st.success("✅ Đã thêm dòng mới từ dữ liệu cũ!")
-                                    st.rerun()
-                                except Exception as e:
-                                    st.error(f"❌ Không thêm được: {e}")
-
                     # --- Nhập chỉ số mới ---
                     st.subheader("⚡ Nhập chỉ số điện nước mới")
                     phong_list = df['Số phòng'].unique().tolist()
@@ -138,9 +96,6 @@ if zip_password:
                                     st.rerun()
                                 except Exception as e:
                                     st.error(f"❌ Không cập nhật được: {e}")
-
-                    st.dataframe(df, use_container_width=True)
-
                 else:
                     st.info("Chưa có dữ liệu hoặc không thể tải.")
 

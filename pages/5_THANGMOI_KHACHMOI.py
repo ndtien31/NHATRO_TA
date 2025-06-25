@@ -58,7 +58,7 @@ if zip_password:
                         st.exception(e)
                         return pd.DataFrame(), None
 
-                st.subheader("📥 Dữ liệu hiện tại:")
+                st.subheader("📥 THÊM KHÁCH HÀNG MỚI:")
                 df, sheet = load_data()
                 if not df.empty:
                     selected_row = st.selectbox("📝 Chọn dòng để chỉnh sửa, xoá hoặc tạo mới từ dòng này:", df.index, format_func=lambda i: f"Phòng: {df.iloc[i]['Số phòng']} - Khách: {df.iloc[i]['Họ tên khách thuê']}")
@@ -77,7 +77,7 @@ if zip_password:
                                 except Exception as e:
                                     st.error(f"❌ Không thêm được: {e}")
                     # --- Tạo dòng mới cho tháng kế tiếp nếu chưa có ---
-                    st.subheader("📆 Tạo dòng mới cho tháng kế tiếp")
+                    st.subheader("📆 TẠO DỮ LIỆU ĐỂ THU THÁNG MỚI")
                     if st.button("➕ Tạo dữ liệu tháng mới"):
                         try:
                             df['THANG_date'] = pd.to_datetime(df['THANG'], errors='coerce')
