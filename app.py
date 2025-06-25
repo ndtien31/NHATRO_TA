@@ -36,7 +36,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
 # Header
 st.markdown('<h1 class="title">NHÀ TRỌ TIẾN AN</h1>', unsafe_allow_html=True)
 st.markdown("### Nơi an cư lý tưởng cho sinh viên và người đi làm")
