@@ -82,6 +82,8 @@ if zip_password and sheet_url:
                     except:
                         font = ImageFont.load_default()
                         font_bold = font
+                        font_bold_tong = font
+                        
 
                     # Vẽ nội dung lên ảnh
                     dt = datetime.strptime(month, "%d/%m/%Y")  # chuyển về datetime
