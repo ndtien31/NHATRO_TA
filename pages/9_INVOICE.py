@@ -20,7 +20,9 @@ st.title("📨 Gửi phiếu thu từ Google Sheet + tạo ảnh từ template")
 
 zip_password = st.text_input("🔐 Mật khẩu file ZIP:", type="password")
 sheet_url = st.text_input("🔗 Dán link Google Sheet tại đây:",
-    "https://docs.google.com/spreadsheets/d/1AxkWZAumRsyW8TkxK3-47SrkyoD8mDZKMuaCZ5ebONk/edit?gid=245158288")
+    "https://docs.google.com/spreadsheets/d/1BXsKK01sHo1CvACbQat0MYmnwQsCG5AMRfFKxVWB3IY/edit?gid=913194966"
+    #"https://docs.google.com/spreadsheets/d/1AxkWZAumRsyW8TkxK3-47SrkyoD8mDZKMuaCZ5ebONk/edit?gid=245158288"
+    )
 
 # --- BẮT ĐẦU QUY TRÌNH ---
 if zip_password and sheet_url:
@@ -82,9 +84,11 @@ if zip_password and sheet_url:
                         font_bold = font
 
                     # Vẽ nội dung lên ảnh
-                    
-                    month_only = month.split("/")[1]  # Lấy phần thứ 2 (tháng)
-                    draw.text((206, 110), f"THÁNG {month_only}", font=font_bold, fill="#FF1493")
+                    dt = datetime.strptime(month, "%d/%m/%Y")  # chuyển về datetime
+                    month1 = dt.month
+                    year = dt.year
+                    # Sau đó dùng:
+                    draw.text((206, 110), f"THÁNG {month1}/{year}", font=font_bold, fill="#FF1493")
                     draw.text((365, 155), f"PHÒNG {room}", font=font_bold, fill="#096106")
                     draw.text((206, 90), f"KH: {name.upper()}", font=font_bold_tong, fill="#FF1493")
 

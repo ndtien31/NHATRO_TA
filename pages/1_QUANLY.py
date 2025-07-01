@@ -77,8 +77,8 @@ with tempfile.TemporaryDirectory() as tmpdir:
         client = gspread.authorize(creds)
         st.success("✅ Kết nối thành công!")
 
-        sheet_url = st.text_input("\U0001F517 Dán link Google Sheet tại đây:",
-                    "https://docs.google.com/spreadsheets/d/1AxkWZAumRsyW8TkxK3-47SrkyoD8mDZKMuaCZ5ebONk/edit?gid=245158288")
+        sheet_url = st.text_input("\U0001F517 Dán link Google Sheet tại đây:","https://docs.google.com/spreadsheets/d/1BXsKK01sHo1CvACbQat0MYmnwQsCG5AMRfFKxVWB3IY/edit?gid=913194966")
+                    #"https://docs.google.com/spreadsheets/d/1AxkWZAumRsyW8TkxK3-47SrkyoD8mDZKMuaCZ5ebONk/edit?gid=245158288")
 
         if not sheet_url:
             st.stop()
