@@ -76,9 +76,12 @@ if zip_password and sheet_url:
                     bg = Image.open(TEMPLATE_IMAGE).convert("RGB")
                     draw = ImageDraw.Draw(bg)
                     try:
-                        font = ImageFont.truetype(FONT_PATH, 15)
-                        font_bold = ImageFont.truetype(FONT_PATH, 15)
-                        font_bold_tong = ImageFont.truetype(FONT_PATH, 18)
+                        # font = ImageFont.truetype(FONT_PATH, 15)
+                        # font_bold = ImageFont.truetype(FONT_PATH, 15)
+                        # font_bold_tong = ImageFont.truetype(FONT_PATH, 18)
+                        font = ImageFont.truetype("Roboto-Regular.ttf", 15)
+                        font_bold = ImageFont.truetype("Roboto-Bold.ttf", 15)
+                        font_bold_tong = ImageFont.truetype("Roboto-Bold.ttf", 18)
                     except:
                         font = ImageFont.load_default()
                         font_bold = font
