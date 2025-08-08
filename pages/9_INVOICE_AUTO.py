@@ -61,79 +61,79 @@ if zip_password and sheet_url:
                 shutil.rmtree(SAVE_FOLDER)
             os.makedirs(SAVE_FOLDER, exist_ok=True)
 
-            if st.button("🚀 Tạo & hiển thị phiếu"):
-                for _, row in unpaid.iterrows():
-                    email = row.get("EMAIL", "").strip()
-                    room = str(row.get("SO_PHONG", "")).strip()
-                    month = row.get("THANG", "")
-                    name = row.get("HO_TEN_KHACH_THUE", "Khách")
-                    filename = f"{room}_{name}_{month}".replace("/", "").replace("\\", "").strip() + ".png"
-                    filepath = os.path.join(SAVE_FOLDER, filename)
+            
+            for _, row in unpaid.iterrows():
+                email = row.get("EMAIL", "").strip()
+                room = str(row.get("SO_PHONG", "")).strip()
+                month = row.get("THANG", "")
+                name = row.get("HO_TEN_KHACH_THUE", "Khách")
+                filename = f"{room}_{name}_{month}".replace("/", "").replace("\\", "").strip() + ".png"
+                filepath = os.path.join(SAVE_FOLDER, filename)
 
-                    bg = Image.open(TEMPLATE_IMAGE).convert("RGB")
-                    draw = ImageDraw.Draw(bg)
-                    try:
-                        font = ImageFont.truetype(FONT_PATH, 15)
-                        font_bold = ImageFont.truetype(FONT_PATH, 15)
-                        font_bold_tong = ImageFont.truetype(FONT_PATH, 18)
-                        # font = ImageFont.truetype("Roboto-Regular.ttf", 15)
-                        # font_bold = ImageFont.truetype("Roboto-Bold.ttf", 15)
-                        # font_bold_tong = ImageFont.truetype("Roboto-Bold.ttf", 18)
-                    except:
-                        font = ImageFont.load_default()
-                        font_bold = font
-                        font_bold_tong = font
-                        
+                bg = Image.open(TEMPLATE_IMAGE).convert("RGB")
+                draw = ImageDraw.Draw(bg)
+                try:
+                    font = ImageFont.truetype(FONT_PATH, 15)
+                    font_bold = ImageFont.truetype(FONT_PATH, 15)
+                    font_bold_tong = ImageFont.truetype(FONT_PATH, 18)
+                    # font = ImageFont.truetype("Roboto-Regular.ttf", 15)
+                    # font_bold = ImageFont.truetype("Roboto-Bold.ttf", 15)
+                    # font_bold_tong = ImageFont.truetype("Roboto-Bold.ttf", 18)
+                except:
+                    font = ImageFont.load_default()
+                    font_bold = font
+                    font_bold_tong = font
+                    
 
-                    # Vẽ nội dung lên ảnh
-                    dt = datetime.strptime(month, "%d/%m/%Y")  # chuyển về datetime
-                    month1 = dt.month
-                    year = dt.year
-                    # Sau đó dùng:
-                    draw.text((206, 110), f"THÁNG {month1}/{year}", font=font_bold, fill="#FF1493")
-                    draw.text((365, 155), f"PHÒNG {room}", font=font_bold, fill="#096106")
-                    draw.text((206, 90), f"KH: {name.upper()}", font=font_bold_tong, fill="#FF1493")
+                # Vẽ nội dung lên ảnh
+                dt = datetime.strptime(month, "%d/%m/%Y")  # chuyển về datetime
+                month1 = dt.month
+                year = dt.year
+                # Sau đó dùng:
+                draw.text((206, 110), f"THÁNG {month1}/{year}", font=font_bold, fill="#FF1493")
+                draw.text((365, 155), f"PHÒNG {room}", font=font_bold, fill="#096106")
+                draw.text((206, 90), f"KH: {name.upper()}", font=font_bold_tong, fill="#FF1493")
 
-                    cs_dien_moi = int(row.get('CHI_SO_DIEN_MOI', 0))
-                    cs_dien_cu = int(row.get('CHI_SO_DIEN_CU', 0))
-                    so_dien = cs_dien_moi - cs_dien_cu
-                    gia_dien = int(row.get('GIA_DIEN', 0))
-                    tien_dien = row.get('TIEN_DIEN', 0)
+                cs_dien_moi = int(row.get('CHI_SO_DIEN_MOI', 0))
+                cs_dien_cu = int(row.get('CHI_SO_DIEN_CU', 0))
+                so_dien = cs_dien_moi - cs_dien_cu
+                gia_dien = int(row.get('GIA_DIEN', 0))
+                tien_dien = row.get('TIEN_DIEN', 0)
 
-                    draw.text((250, 210),  f"{cs_dien_cu:,}", font=font, fill="black", anchor="ra")
-                    draw.text((320, 210), f"{cs_dien_moi:,}", font=font, fill="black", anchor="ra")
-                    draw.text((420, 210), str(so_dien), font=font, fill="black", anchor="ra")
-                    draw.text((500, 210), f"{gia_dien:,}", font=font, fill="black", anchor="ra")
-                    draw.text((600, 210), f"{int(tien_dien):,}", font=font, fill="black", anchor="ra")
+                draw.text((250, 210),  f"{cs_dien_cu:,}", font=font, fill="black", anchor="ra")
+                draw.text((320, 210), f"{cs_dien_moi:,}", font=font, fill="black", anchor="ra")
+                draw.text((420, 210), str(so_dien), font=font, fill="black", anchor="ra")
+                draw.text((500, 210), f"{gia_dien:,}", font=font, fill="black", anchor="ra")
+                draw.text((600, 210), f"{int(tien_dien):,}", font=font, fill="black", anchor="ra")
 
-                    cs_nuoc_moi = int(row.get('CHI_SO_NUOC_MOI', 0))
-                    cs_nuoc_cu = int(row.get('CHI_SO_NUOC_CU', 0))
-                    so_nuoc = cs_nuoc_moi - cs_nuoc_cu
-                    gia_nuoc = int(row.get('GIA_NUOC', 0))
-                    tien_nuoc = row.get('TIEN_NUOC', 0)
-                    draw.text((250, 227), str(cs_nuoc_cu), font=font, fill="black", anchor="ra")
-                    draw.text((320, 227), str(cs_nuoc_moi), font=font, fill="black", anchor="ra")
-                    draw.text((420, 227), str(so_nuoc), font=font, fill="black", anchor="ra")    
-                    draw.text((500, 227), f"{gia_nuoc:,}", font=font, fill="black", anchor="ra")                   
-                    draw.text((600, 227), f"{int(tien_nuoc):,}", font=font, fill="black", anchor="ra")
+                cs_nuoc_moi = int(row.get('CHI_SO_NUOC_MOI', 0))
+                cs_nuoc_cu = int(row.get('CHI_SO_NUOC_CU', 0))
+                so_nuoc = cs_nuoc_moi - cs_nuoc_cu
+                gia_nuoc = int(row.get('GIA_NUOC', 0))
+                tien_nuoc = row.get('TIEN_NUOC', 0)
+                draw.text((250, 227), str(cs_nuoc_cu), font=font, fill="black", anchor="ra")
+                draw.text((320, 227), str(cs_nuoc_moi), font=font, fill="black", anchor="ra")
+                draw.text((420, 227), str(so_nuoc), font=font, fill="black", anchor="ra")    
+                draw.text((500, 227), f"{gia_nuoc:,}", font=font, fill="black", anchor="ra")                   
+                draw.text((600, 227), f"{int(tien_nuoc):,}", font=font, fill="black", anchor="ra")
 
-                    #draw.text((530, 266), f"{int(row.get('TIEN_DICH_VU', 0)):,}", font=font, fill="black")
-                    draw.text((600, 246), f"{int(row.get('TIEN_RAC', 0)):,}", font=font, fill="black", anchor="ra")
-                    draw.text((600,265 ), f"{int(row.get('TIEN_THUE_PHONG', 0)):,}", font=font_bold, fill="black", anchor="ra")
+                #draw.text((530, 266), f"{int(row.get('TIEN_DICH_VU', 0)):,}", font=font, fill="black")
+                draw.text((600, 246), f"{int(row.get('TIEN_RAC', 0)):,}", font=font, fill="black", anchor="ra")
+                draw.text((600,265 ), f"{int(row.get('TIEN_THUE_PHONG', 0)):,}", font=font_bold, fill="black", anchor="ra")
 
-                    draw.text((600, 283), f"{int(row.get('TONG_CONG', 0)):,}", font=font_bold_tong, fill="red", anchor="ra")
+                draw.text((600, 283), f"{int(row.get('TONG_CONG', 0)):,}", font=font_bold_tong, fill="red", anchor="ra")
 
-                    #ghi_chu = row.get("GHI_CHU", "").strip()
-                    #if ghi_chu:
-                    #    draw.text((100, 360), f"Ghi chú: {ghi_chu}", font=font, fill="blue")
+                #ghi_chu = row.get("GHI_CHU", "").strip()
+                #if ghi_chu:
+                #    draw.text((100, 360), f"Ghi chú: {ghi_chu}", font=font, fill="blue")
 
-                    bg.save(filepath)
+                bg.save(filepath)
 
-                # Hiển thị danh sách ảnh
-                st.subheader("🖼️ Danh sách phiếu thu đã tạo:")
-                for img_file in os.listdir(SAVE_FOLDER):
-                    if img_file.endswith(".png"):
-                        st.image(os.path.join(SAVE_FOLDER, img_file), caption=img_file, width=600)
+            # Hiển thị danh sách ảnh
+            st.subheader("🖼️ Danh sách phiếu thu đã tạo:")
+            for img_file in os.listdir(SAVE_FOLDER):
+                if img_file.endswith(".png"):
+                    st.image(os.path.join(SAVE_FOLDER, img_file), caption=img_file, width=600)
 
         except Exception as e:
             st.error(f"❌ Lỗi hệ thống: {e}")
